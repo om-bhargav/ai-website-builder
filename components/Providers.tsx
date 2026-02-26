@@ -7,7 +7,7 @@ import { SessionProvider } from "next-auth/react";
 export default function Providers({ children }: React.PropsWithChildren) {
   return (
     <SessionProvider>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
         <AuthWrapper>
           <Toaster />
           {children}

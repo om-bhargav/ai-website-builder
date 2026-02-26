@@ -10,7 +10,7 @@ const MyHeader = () => {
   return (
     <div
       id="home"
-      className="z-[10] animate-btu relative p-4 w-screen maxn-w-[1400px] lg:min-h-[600px] flex justify-center items-center bg-gradient-to-b from-[#3c1d6f] to-black"
+      className="z-[10] animate-btu relative p-4 w-screen maxn-w-[1400px] lg:min-h-[600px] flex justify-center items-center bg-gradient-to-b from-[#3c1d6f] to-background"
     >
       <div className="container max-w-3xl text-center flex flex-col items-center justify-center gap-5">
         <div className="max-md:text-lg md:text-3xl font-semibold leading-normal">
