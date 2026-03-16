@@ -8,7 +8,5 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 export const cascadiaCode = Cascadia_Code({
-  subsets: ['latin'],
-  display: 'swap',
-  adjustFontFallback: true,
+  
 });

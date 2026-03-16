@@ -2,6 +2,7 @@
 import { Loader2 } from "lucide-react";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
+const TYPES = ["INSIGHT", "QUERY"];
 function Contactus() {
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
@@ -11,7 +12,7 @@ function Contactus() {
     const fd = new FormData(e.currentTarget as any);
     const data = Object.fromEntries(fd);
     try {
-      const request = await fetch("/api/submissions", {
+      const request = await fetch("/api/admin/submissions", {
         method: "POST",
         body: JSON.stringify(data),
       });
@@ -74,6 +75,16 @@ function Contactus() {
               required
             />
           </div>
+        </div>
+        <div className="grid bg-gradient-to-br from-purple-500 to-indigo-500 p-[2px] rounded">
+          <select name="messageType" className="bg-gray-900 p-2! rounded outline-none">
+            <option value={""}>Select Value</option>
+            {TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="grid bg-gradient-to-br from-purple-500 to-indigo-500 p-[2px] rounded">
           <textarea

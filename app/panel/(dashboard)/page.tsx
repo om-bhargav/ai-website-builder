@@ -1,7 +1,129 @@
-import React from 'react'
+"use client";
 
-export default function page() {
+import * as React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+import { MetricCard } from "./_components/MetricCard";
+import { ActivityCard } from "./_components/ActivityCard";
+import {
+  Users,
+  Globe,
+  LayoutTemplate,
+  CreditCard,
+  FileText,
+  TrendingUp,
+  Shield,
+} from "lucide-react";
+import { AnalyticChart } from "./_components/ActivityChart";
+export default function Dashboard() {
+  // Mocked aggregated metrics (replace with Prisma counts)
+  const metrics = {
+    totalUsers: 124,
+    totalWebsites: 58,
+    totalTemplates: 210,
+    activePlans: 37,
+    totalSubmissions: 842,
+    admins: 3,
+  };
+    const weeklySubmissions = [
+    { date: "Mon", value: 40 },
+    { date: "Tue", value: 55 },
+    { date: "Wed", value: 48 },
+    { date: "Thu", value: 70 },
+    { date: "Fri", value: 66 },
+    { date: "Sat", value: 80 },
+    { date: "Sun", value: 60 },
+  ]
+
+  const monthlySubmissions = [
+    { date: "Jan", value: 210 },
+    { date: "Feb", value: 320 },
+    { date: "Mar", value: 280 },
+    { date: "Apr", value: 400 },
+    { date: "May", value: 370 },
+  ]
+
   return (
-    <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos tempora doloribus voluptatum est asperiores non esse rerum soluta. Similique dolore, esse repellendus dicta, magni molestiae tempore quo quas mollitia quae cumque quos voluptate minus explicabo? Aliquam aperiam quia hic totam officia ullam, nostrum, corporis provident eos vel, officiis ut explicabo! Quas quae, nobis in error laborum saepe dolor est, quasi, atque doloremque at tempore! Sit dolorem facilis quaerat vitae quas neque cumque, maxime error quia voluptatem! Sint a aliquid, sequi quam aspernatur aliquam molestias possimus eaque eligendi beatae numquam accusamus nesciunt nemo, illum asperiores tenetur ullam architecto natus excepturi quas autem modi quisquam? Assumenda nisi quibusdam iure veniam modi sint pariatur, alias dolor officia, in neque? Hic explicabo doloribus nisi optio dolorem expedita aliquid aliquam temporibus, velit sapiente suscipit nostrum, soluta repudiandae. Ratione explicabo maxime vero, quam consequuntur tenetur soluta reprehenderit aspernatur molestiae ducimus itaque, autem id sint modi quidem sapiente porro illum ad. Officia magni, at consequatur vel repellat voluptas qui. Minima voluptatum inventore, labore, aut impedit recusandae consequatur consequuntur quod ducimus cupiditate, delectus mollitia necessitatibus cumque expedita iste ad nesciunt. Sapiente praesentium nesciunt impedit consectetur tempore maiores consequuntur sed? Mollitia magnam facilis nesciunt nemo, illum amet inventore, eum consequuntur harum blanditiis debitis? Quibusdam quidem voluptatum, nesciunt iusto vel a maiores molestias voluptates, ad deserunt repudiandae illum at eos. Maxime totam architecto illo inventore eligendi! Expedita quasi rem temporibus perspiciatis tempore ipsum quo molestiae quos earum! Non sed possimus inventore reiciendis architecto quasi pariatur quia facere amet animi ipsam labore eveniet, delectus explicabo vero quae ad maxime sint in esse velit asperiores! Itaque vero deserunt nemo architecto debitis. Voluptate exercitationem dolores molestias quas commodi, natus cum soluta praesentium explicabo neque necessitatibus non accusantium iusto alias voluptas at deleniti itaque quo quae ratione! Quis ipsam ipsum pariatur dignissimos obcaecati nostrum iste quibusdam minus magnam magni dolor perspiciatis, praesentium ullam nemo doloremque unde atque ab corrupti neque? Quae, molestias? Sapiente porro distinctio praesentium alias rerum eius labore quod nihil explicabo optio? Eos, reiciendis voluptates? Unde odit cupiditate odio pariatur soluta perspiciatis aut nobis sunt a inventore laudantium laborum, itaque ipsa explicabo quasi id optio sequi totam praesentium quidem velit doloribus, aperiam, tenetur sint. Architecto, quibusdam? Voluptate et accusamus quam omnis distinctio voluptas vero quas corporis fugiat? Nisi ducimus iure minus fuga vero quibusdam sunt cupiditate cum quo velit vitae odit maxime esse expedita, ad voluptatum! Sint ipsam dolorem vitae praesentium aut non delectus similique, veniam dolore, maxime facilis labore? Ea dicta quo rem, nesciunt ad quaerat, expedita pariatur recusandae molestias molestiae, reprehenderit facilis similique quia delectus architecto. Quod, quibusdam saepe! Mollitia, a repellendus enim consectetur facilis dolores aperiam cupiditate dolore maiores fugit laudantium labore beatae? Eveniet beatae expedita iure laborum odio natus sed aliquid rerum. Unde maxime, dicta asperiores tempore consectetur atque voluptates minima, doloremque, illo perferendis suscipit earum. Quasi sapiente totam nostrum dolor beatae ratione est eveniet? Ipsa id atque, qui quas aliquid repellat. Delectus quo error quisquam id tenetur, nemo placeat. Possimus in aliquam voluptatum ipsam maiores totam magnam!</div>
-  )
+    <div className="w-full min-h-screen text-foreground p-6 space-y-8">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex  justify-between items-center"
+      >
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
+          <p className="text-muted-foreground">Visual insights from your Prisma data models.</p>
+        </div>
+        <Button size={"sm"}>Generate Report</Button>
+      </motion.div>
+
+      {/* Metrics Grid */}
+      <div className="grid md:grid-cols-3 xl:grid-cols-6 gap-6">
+        <MetricCard title="Users" value={metrics.totalUsers} icon={Users} trend="+8% this month" />
+        <MetricCard title="Websites" value={metrics.totalWebsites} icon={Globe} />
+        <MetricCard title="Templates" value={metrics.totalTemplates} icon={LayoutTemplate} />
+        <MetricCard title="Active Plans" value={metrics.activePlans} icon={CreditCard} />
+        <MetricCard title="Submissions" value={metrics.totalSubmissions} icon={FileText} />
+        <MetricCard title="Admins" value={metrics.admins} icon={Shield} />
+      </div>
+
+      {/* Secondary Section */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Recent Users */}
+        <ActivityCard title="Recent Users">
+          {[1, 2, 3].map((_, i) => (
+            <div key={i} className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Avatar>
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm font-medium">User {i + 1}</p>
+                  <p className="text-xs text-muted-foreground">user{i + 1}@mail.com</p>
+                </div>
+              </div>
+              <Badge variant="secondary">USER</Badge>
+            </div>
+          ))}
+        </ActivityCard>
+
+        {/* Website Status Breakdown */}
+        <ActivityCard title="Website Status">
+          <div className="space-y-4">
+            <div className="flex justify-between">
+              <span className="text-sm">Draft</span>
+              <Badge variant="secondary">12</Badge>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm">Under Development</span>
+              <Badge variant="outline">18</Badge>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm">Published</span>
+              <Badge>28</Badge>
+            </div>
+          </div>
+        </ActivityCard>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <AnalyticChart monthlyData={monthlySubmissions} weeklyData={weeklySubmissions} title="Submissions"/>           
+        <AnalyticChart monthlyData={monthlySubmissions} weeklyData={weeklySubmissions} title="Submissions"/>           
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        
+        <AnalyticChart monthlyData={monthlySubmissions} weeklyData={weeklySubmissions} title="Submissions"/>           
+        <AnalyticChart monthlyData={monthlySubmissions} weeklyData={weeklySubmissions} title="Submissions"/>           
+      </div>
+
+      <Separator />
+    </div>
+  );
 }

@@ -12,11 +12,7 @@ datasource db {
   provider = "postgresql"
 }
 
-enum PLAN_TYPE{
-  BASIC
-  PRO
-  ADVANCED
-}
+
 
 enum STATUS{
   DRAFT
@@ -36,6 +32,7 @@ model User{
   phone  String?
   password String?
   image String?
+  bio String? @default("")
   emailVerified Boolean?
   accounts Account[]
   role ROLE @default(USER)
@@ -84,6 +81,12 @@ model Website{
   status STATUS @default(DRAFT)
 }
 
+enum PLAN_TYPE{
+  BASIC
+  PRO
+  ADVANCED
+}
+
 model Plan{
   id String  @id @unique @default(uuid())
   userId String @unique
@@ -99,5 +102,6 @@ model submissions{
   phone String
   city String
   message String
+  type String @default("QUERY")
   createdAt DateTime @default(now())
 }

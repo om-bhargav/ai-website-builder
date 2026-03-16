@@ -22,9 +22,9 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { name, email, phone, city, message } = body;
+    const { name, email, phone, city, message ,messageType} = body;
 
-    if (!name || !email || !phone || !city || !message) {
+    if (!name || !email || !phone || !city || !message || !messageType) {
       return NextResponse.json(
         { success: false, message: "All fields are required" },
         { status: 400 },
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
         phone,
         city,
         message,
+        type: messageType
       },
     });
 
