@@ -25,7 +25,7 @@ export function InsightCard({ index, name, email, phone, city, message, date, ty
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <Card className="rounded-2xl border border-border/60 shadow-sm hover:shadow-xl transition-all bg-background/50 duration-300">
+      <Card className="rounded-2xl border border-border/60 shadow-sm hover:shadow-xl transition-all bg-background/30 duration-300">
         {/* Header */}
         <CardHeader className="flex flex-row items-center justify-between pb-3">
           <div className="flex items-center gap-3">
@@ -89,7 +89,7 @@ export function InsightCard({ index, name, email, phone, city, message, date, ty
 
 export function InsightCardSkeleton() {
   return (
-    <Card className="rounded-2xl border border-border/60 shadow-sm bg-background/20 w-full">
+    <Card className="rounded-2xl border border-border/60 shadow-sm bg-background/30 w-full">
       {/* Header */}
       <CardHeader className="flex flex-row items-center justify-between pb-3">
         <div className="flex items-center gap-3">

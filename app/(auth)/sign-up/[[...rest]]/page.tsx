@@ -11,7 +11,7 @@ import GoBackButton from "@/components/buttons/GoBackButton";
 const Signup = () => {
   return (
     <div>
-      <div className="xl:w-full py-5 place-items-center mx-auto grid xl:grid-cols-2 px-3 lg:min-h-screen w-full">
+      <div className="xl:w-full place-items-center mx-auto grid xl:grid-cols-2 px-3 h-screen w-full">
         <Particles
           className="absolute inset-0 w-full"
           quantity={300}
@@ -72,7 +72,6 @@ const Signup = () => {
           <img src="/side-bar-2.png" className="h-screen w-full" />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

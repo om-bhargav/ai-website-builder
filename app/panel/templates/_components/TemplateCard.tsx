@@ -28,7 +28,7 @@ export default function TemplateCard({index}:{index: number}) {
       transition={{ duration: 0.4, delay: 0.15 * index }}
       className="w-full max-w-xl"
     >
-      <Card className="overflow-hidden bg-background/50 pt-0 rounded-2xl shadow-xl">
+      <Card className="overflow-hidden bg-background/30 pt-0 rounded-2xl shadow-xl">
         
         {/* Thumbnail */}
         <div className="relative h-52 w-full overflow-hidden">

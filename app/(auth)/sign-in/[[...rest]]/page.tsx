@@ -12,7 +12,7 @@ import Link from "next/link";
 const Login = () => {
   return (
     <div>
-      <div className="xl:w-screen py-5 place-items-center mx-auto grid xl:grid-cols-2 px-3 lg:min-h-screen w-full">
+      <div className="xl:w-screen place-items-center mx-auto grid xl:grid-cols-2 px-3 h-screen w-full">
         <Particles
           className="absolute inset-0 w-full"
           quantity={300}
@@ -69,7 +69,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

@@ -24,7 +24,7 @@ export default function ProfilePhotoCard({ user }: Props) {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <Card className="bg-background/50 backdrop-blur border border-white/10 rounded-2xl">
+      <Card className="bg-background/30 backdrop-blur border border-white/10 rounded-2xl">
         <CardHeader>
           <CardTitle className="text-foreground text-lg">Your Photo</CardTitle>
         </CardHeader>
@@ -64,7 +64,7 @@ export default function ProfilePhotoCard({ user }: Props) {
 
 export function ProfilePhotoCardSkeleton() {
   return (
-    <Card className="bg-background/50 backdrop-blur border border-white/10 rounded-2xl">
+    <Card className="bg-background/30 backdrop-blur border border-white/10 rounded-2xl">
       <CardHeader>
         <Skeleton className="h-6 w-32 rounded-md" />
       </CardHeader>

@@ -50,7 +50,7 @@ export default function AdvancedUserCard({index}:{index: number}) {
         transition={{ duration: 0.4,delay: 0.15 * index }}
         className="w-full max-w-lg"
       >
-        <Card className="rounded-2xl shadow-2xl border bg-background/50 text-foreground">
+        <Card className="rounded-2xl shadow-2xl border bg-background/30 text-foreground">
           {/* Header */}
           <CardHeader className="flex flex-row items-center gap-4">
             <motion.div whileHover={{ scale: 1.05 }}>

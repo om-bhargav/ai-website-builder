@@ -17,7 +17,7 @@ interface User {
 }
 interface Props {
   user: User;
-}
+} 
 export default function PersonalInfoForm({ user }: Props) {
   return (
     <motion.div
@@ -25,7 +25,7 @@ export default function PersonalInfoForm({ user }: Props) {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <Card className="bg-background/50 backdrop-blur border border-white/10 rounded-2xl">
+      <Card className="bg-background/30 backdrop-blur border border-white/10 rounded-2xl">
         <CardHeader>
           <CardTitle className="text-foreground text-lg">Personal Information</CardTitle>
         </CardHeader>
@@ -100,7 +100,7 @@ export default function PersonalInfoForm({ user }: Props) {
 
 export function PersonalInfoFormSkeleton() {
   return (
-    <Card className="bg-background/50 backdrop-blur border border-white/10 rounded-2xl">
+    <Card className="bg-background/30 backdrop-blur border border-white/10 rounded-2xl">
       <CardHeader>
         <Skeleton className="h-6 w-48 rounded-md" />
       </CardHeader>

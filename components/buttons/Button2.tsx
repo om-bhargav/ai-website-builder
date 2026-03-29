@@ -13,7 +13,7 @@ export default function Button2({
     <Button
       {...props}
       className={cn(
-        "p-1 bg-gradient-to-br text-white! from-indigo-500 to-purple-500 lg:px-[2rem] lg:py-[0.7rem] hover:from-indigo-600 hover:to-purple-600 rounded cursor-pointer",
+        "p-1 bg-gradient-to-br rounded-md! text-white! from-indigo-500 to-purple-500 lg:px-[2rem] lg:py-[0.7rem] hover:from-indigo-600 hover:to-purple-600 rounded cursor-pointer",
         className,
       )}
     >
