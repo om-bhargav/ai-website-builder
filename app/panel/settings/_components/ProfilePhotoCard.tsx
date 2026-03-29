@@ -1,85 +1,75 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Upload } from "lucide-react"
-import Image from "next/image"
-import { Skeleton } from "@/components/ui/skeleton"
-interface User{
-  email: string
-  name: string
-  bio: string
-  phone: string
-  image: string
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Upload } from "lucide-react";
+import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "framer-motion";
+interface User {
+  email: string;
+  name: string;
+  bio: string;
+  phone: string;
+  image: string;
 }
-interface Props{
-  user: User
+interface Props {
+  user: User;
 }
-export default function ProfilePhotoCard({user}:Props) {
+export default function ProfilePhotoCard({ user }: Props) {
   const image = user.image || "/avatar.png";
   return (
-    <Card className="bg-background/20 backdrop-blur border border-white/10 rounded-2xl">
-      <CardHeader>
-        <CardTitle className="text-foreground text-lg">
-          Your Photo
-        </CardTitle>
-      </CardHeader>
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <Card className="bg-background/50 backdrop-blur border border-white/10 rounded-2xl">
+        <CardHeader>
+          <CardTitle className="text-foreground text-lg">Your Photo</CardTitle>
+        </CardHeader>
 
-      <CardContent className="space-y-6">
+        <CardContent className="space-y-6">
+          {/* Avatar */}
+          <div className="flex items-center gap-4">
+            <Image src={image} width={60} height={60} alt="avatar" className="rounded-full" />
+            <div>
+              <p className="text-foreground font-medium">Edit your photo</p>
+              <p className="text-sm text-muted-foreground cursor-pointer">Delete · Update</p>
+            </div>
+          </div>
 
-        {/* Avatar */}
-        <div className="flex items-center gap-4">
-          <Image
-            src={image}
-            width={60}
-            height={60}
-            alt="avatar"
-            className="rounded-full"
-          />
-          <div>
-            <p className="text-foreground font-medium">Edit your photo</p>
-            <p className="text-sm text-muted-foreground cursor-pointer">
-              Delete · Update
+          {/* Upload Box */}
+          <div className="border border-dashed border-white/20 rounded-xl p-10 text-center bg-background/5">
+            <Upload className="mx-auto w-6 h-6 text-muted-foreground mb-3" />
+            <p className="text-indigo-400 text-sm cursor-pointer">Click to upload</p>
+            <p className="text-xs text-muted-foreground mt-2">
+              SVG, PNG, JPG or GIF (max. 800x800px)
             </p>
           </div>
-        </div>
 
-        {/* Upload Box */}
-        <div className="border border-dashed border-white/20 rounded-xl p-10 text-center bg-background/5">
-          <Upload className="mx-auto w-6 h-6 text-muted-foreground mb-3" />
-          <p className="text-indigo-400 text-sm cursor-pointer">
-            Click to upload
-          </p>
-          <p className="text-xs text-muted-foreground mt-2">
-            SVG, PNG, JPG or GIF (max. 800x800px)
-          </p>
-        </div>
+          {/* Buttons */}
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" className="border-white/20 text-foreground">
+              Cancel
+            </Button>
 
-        {/* Buttons */}
-        <div className="flex justify-end gap-3">
-          <Button variant="outline" className="border-white/20 text-foreground">
-            Cancel
-          </Button>
-
-          <Button>
-            Save
-          </Button>
-        </div>
-
-      </CardContent>
-    </Card>
-  )
+            <Button>Save</Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
 }
 
 export function ProfilePhotoCardSkeleton() {
   return (
-    <Card className="bg-background/20 backdrop-blur border border-white/10 rounded-2xl">
+    <Card className="bg-background/50 backdrop-blur border border-white/10 rounded-2xl">
       <CardHeader>
         <Skeleton className="h-6 w-32 rounded-md" />
       </CardHeader>
 
       <CardContent className="space-y-6">
-
         {/* Avatar Section */}
         <div className="flex items-center gap-4">
           <Skeleton className="h-[60px] w-[60px] rounded-full" />
@@ -105,8 +95,7 @@ export function ProfilePhotoCardSkeleton() {
           <Skeleton className="h-10 w-24 rounded-md" />
           <Skeleton className="h-10 w-20 rounded-md" />
         </div>
-
       </CardContent>
     </Card>
-  )
+  );
 }

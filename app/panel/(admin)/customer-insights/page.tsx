@@ -19,7 +19,7 @@ export default function InsightsPage() {
     })
   },[type,submissions]);
   return (
-    <div className="space-y-10 md:p-6">
+    <div className="space-y-10 md:p-4">
       <div className="space-y-4">
         <div className="flex gap-5 flex-col md:flex-row justify-between">
           <div>
@@ -47,7 +47,7 @@ export default function InsightsPage() {
         >
           <div className="grid md:grid-cols-2 gap-6">
             {filteredSubmissions.map((item: InsightCardProps, index: number) => (
-              <InsightCard key={index} {...(item as any)} />
+              <InsightCard index={index} key={index} {...(item as any)} />
             ))}
           </div>
         </ErrorLoading>

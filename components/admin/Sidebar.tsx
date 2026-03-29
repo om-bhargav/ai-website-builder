@@ -36,11 +36,6 @@ const menuItems = [
     href: "/panel/manage-users",
   },
   {
-    title: "Manage Templates",
-    icon: Files,
-    href: "/panel/manage-templates",
-  },
-  {
     title: "manage websites",
     icon: LucideAppWindow,
     href: "/panel/manage-websites",

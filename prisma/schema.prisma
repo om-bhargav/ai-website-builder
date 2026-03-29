@@ -24,7 +24,11 @@ enum ROLE{
   USER
   ADMIN
 }
-
+enum USER_STATUS{
+  ACTIVATED
+  DEACTIVATED
+  SUSPENDED
+}
 model User{
   id String  @id @unique @default(uuid())
   name String

@@ -5,7 +5,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "i.pravatar.cc",
-        pathname: "/**", // Use wildcard to match any path
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/**",
       },
     ],
   },

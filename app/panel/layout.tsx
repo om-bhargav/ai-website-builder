@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import Sidebar from "@/components/admin/Sidebar";
 import dynamic from "next/dynamic";
+import {montserrat} from "@/lib/fonts";
 const Topbar = dynamic(()=>import("@/components/admin/Topbar"));
-import {cascadiaCode} from "@/lib/fonts";
 export default function Layout({ children }: React.PropsWithChildren) {
   const [open,setOpen] = useState(false);
   return (
-    <div className={`min-h-screen w-full flex ${cascadiaCode.className}`}>
+    <div className={`min-h-screen w-full flex ${montserrat.className}`}>
       <Sidebar open={open} setOpen={setOpen}/>
       <div className="flex flex-col flex-1">
         <Topbar setOpen={setOpen}/>

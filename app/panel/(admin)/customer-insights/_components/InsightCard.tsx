@@ -1,11 +1,11 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, User, MapPin } from "lucide-react";
-
+import { motion } from "framer-motion";
 export interface InsightCardProps {
   name: string;
   email: string;
@@ -14,71 +14,78 @@ export interface InsightCardProps {
   message: string;
   date: string;
   type: string;
+  index: number;
 }
 
-export function InsightCard({ name, email, phone, city, message, date, type }: InsightCardProps) {
+export function InsightCard({ index, name, email, phone, city, message, date, type }: InsightCardProps) {
+  const isEven = (index % 2) === 0;
   return (
-    <Card className="rounded-2xl border border-border/60 shadow-sm hover:shadow-xl transition-all bg-background/20 duration-300">
-      {/* Header */}
-      <CardHeader className="flex flex-row items-center justify-between pb-3">
-        <div className="flex items-center gap-3">
-          <div className="p-3 rounded-full bg-primary/10">
-            <User className="w-5 h-5 text-primary" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg uppercase text-foreground">{name}</h3>
-            <p className="text-xs text-muted-foreground">{date}</p>
-          </div>
-        </div>
-
-        <Badge variant={type === "QUERY" ? "destructive" : "default"}>{type}</Badge>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        {/* Message */}
-        <div className="bg-foreground/10 p-4 rounded-xl">
-          <p className="text-sm text-muted-foreground line-clamp-4 leading-relaxed">{message}</p>
-        </div>
-
-        {/* Contact Info */}
-        <div className="grid gap-2 text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Mail className="w-4 h-4" />
-            <span>{email}</span>
+    <motion.div
+      initial={{ opacity: 0, ...isEven ? {x: -40}:{x:40} }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <Card className="rounded-2xl border border-border/60 shadow-sm hover:shadow-xl transition-all bg-background/50 duration-300">
+        {/* Header */}
+        <CardHeader className="flex flex-row items-center justify-between pb-3">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-full bg-primary/10">
+              <User className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg uppercase text-foreground">{name}</h3>
+              <p className="text-xs text-muted-foreground">{date}</p>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Phone className="w-4 h-4" />
-            <span>{phone}</span>
+          <Badge variant={type === "QUERY" ? "destructive" : "default"}>{type}</Badge>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          {/* Message */}
+          <div className="bg-foreground/10 p-4 rounded-xl">
+            <p className="text-sm text-muted-foreground line-clamp-4 leading-relaxed">{message}</p>
           </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <MapPin className="w-4 h-4" />
-            <span>{city}</span>
+          {/* Contact Info */}
+          <div className="grid gap-2 text-sm">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Mail className="w-4 h-4" />
+              <span>{email}</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Phone className="w-4 h-4" />
+              <span>{phone}</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <MapPin className="w-4 h-4" />
+              <span>{city}</span>
+            </div>
           </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-3 pt-2">
-          <Button asChild size="sm" className="flex-1 rounded-xl py-4!">
-            <a href={`mailto:${email}`}>
-              <Mail className="w-4 h-4 mr-2" />
-              Email
-            </a>
-          </Button>
+          {/* Action Buttons */}
+          <div className="flex gap-3 pt-2">
+            <Button asChild size="sm" className="flex-1 rounded-xl py-4!">
+              <a href={`mailto:${email}`}>
+                <Mail className="w-4 h-4 mr-2" />
+                Email
+              </a>
+            </Button>
 
-          <Button asChild size="sm" variant="secondary" className="flex-1 rounded-xl py-4!">
-            <a href={`tel:${phone}`}>
-              <Phone className="w-4 h-4 mr-2" />
-              Call
-            </a>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+            <Button asChild size="sm" variant="secondary" className="flex-1 rounded-xl py-4!">
+              <a href={`tel:${phone}`}>
+                <Phone className="w-4 h-4 mr-2" />
+                Call
+              </a>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }
-
 
 export function InsightCardSkeleton() {
   return (
@@ -114,5 +121,5 @@ export function InsightCardSkeleton() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
