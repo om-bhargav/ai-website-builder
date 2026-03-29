@@ -1,1 +1,1 @@
-export const SITE_NAME = "Pagepiolet"
+export const SITE_NAME = process.env.NEXT_PUBLIC_PLATEFORM_NAME;
