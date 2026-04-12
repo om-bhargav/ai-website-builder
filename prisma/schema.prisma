@@ -109,3 +109,19 @@ model submissions{
   type String @default("QUERY")
   createdAt DateTime @default(now())
 }
+
+model Roadmap {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  // React Flow fields
+  nodes       Json     // stores nodes array
+  edges       Json     // stores edges array
+  viewport    Json?    // zoom + position (optional)
+
+  @@map("roadmaps")
+}

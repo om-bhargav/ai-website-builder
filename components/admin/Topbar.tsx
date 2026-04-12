@@ -168,7 +168,7 @@ export default function Topbar({ setOpen }: Props) {
               <Button
                 variant="ghost"
                 className="flex items-center gap-3 rounded-2xl px-3 py-2 
-                bg-accent/40 hover:bg-accent  "
+                bg-transparent hover:bg-accent  "
               >
                 <div
                   className="flex h-10 w-10 items-center justify-center 

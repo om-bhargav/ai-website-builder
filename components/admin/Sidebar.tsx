@@ -16,6 +16,8 @@ import {
   Ellipsis,
   HelpingHand,
   Send,
+  Map,
+  MapPin,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -54,6 +56,16 @@ const menuItems = [
     title: "Billings",
     icon: FileText,
     href: "/panel/plans",
+  },
+  {
+    title: "Support",
+    icon: HelpCircle,
+    href: "/panel/help-desk",
+  },
+  {
+    title: "Roadmaps",
+    icon: Map,
+    href: "/panel/roadmaps",
   },
   {
     title: "Settings",
