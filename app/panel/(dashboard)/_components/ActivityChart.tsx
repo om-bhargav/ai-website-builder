@@ -54,7 +54,7 @@ export function AnalyticChart({
   const data = timeframe === "weekly" ? weeklyData : monthlyData
 
   return (
-    <Card className="w-full bg-primary/5 border border-primary/20 shadow-sm rounded-3xl">
+    <Card className="w-full bg-primary/5 border max-md:py-0 border-primary/20 shadow-sm rounded-3xl">
       <CardHeader className="flex flex-row items-center justify-between px-6 py-6">
         <CardTitle className="text-xl font-bold text-foreground">
           {title} Analytics
@@ -79,7 +79,7 @@ export function AnalyticChart({
       <CardContent className="px-2 sm:px-6 pb-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[240px] w-full text-primary"
+          className="aspect-auto max-md:h-[200px] md:h-[240px] w-full text-primary"
         >
           <AreaChart data={data}>
             <defs>

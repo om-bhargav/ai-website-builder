@@ -7,9 +7,9 @@ import {Input} from "@/components/ui/input";
 export default function page() {
   return (
     <div className="grid gap-5 p-4">
-      <div className="flex items-center justify-between">
+      <div className="flex max-md:flex-col md:items-center gap-5 justify-between">
         <h2 className="text-3xl font-semibold">Manage Websites</h2>
-        <div className="flex gap-3 items-center">
+        <div className="flex max-md:flex-col gap-5 md:items-center">
           <div className="flex items-center gap-2">
             <Input placeholder="Search Websites" />
             <Button variant={"secondary"}>

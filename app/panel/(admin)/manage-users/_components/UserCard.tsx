@@ -67,11 +67,11 @@ export default function AdvancedUserCard({index}:{index: number}) {
               <p className="text-sm text-muted-foreground flex items-center gap-1">
                 <Mail size={14} /> {dummyUser.email}
               </p>
-            </div>
-
             <Badge variant={role === "ADMIN" ? "default" : "secondary"}>
               {role}
             </Badge>
+            </div>
+
           </CardHeader>
 
           <CardContent className="space-y-5">

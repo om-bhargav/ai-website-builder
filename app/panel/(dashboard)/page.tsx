@@ -54,9 +54,9 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex  justify-between items-center"
+        className="flex max-md:flex-col gap-4 justify-between md:items-center"
       >
-        <div>
+        <div className="space-y-4">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
           <p className="text-muted-foreground">Visual insights from your Prisma data models.</p>
         </div>
