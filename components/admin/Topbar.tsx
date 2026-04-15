@@ -12,7 +12,7 @@ import {
   TextAlignJustify,
 } from "lucide-react";
 import dynamic from "next/dynamic";
-const ThemeSwitch = dynamic(()=>import("../admin/ThemeSwitch"));
+const ThemeSwitch = dynamic(() => import("../admin/ThemeSwitch"));
 import { AppIcon } from "@/components/AppIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,12 +27,12 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { signOut } from "next-auth/react";
 interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Topbar({ setOpen }: Props) {
-
   const notifications = [
     {
       id: 1,
@@ -202,7 +202,12 @@ export default function Topbar({ setOpen }: Props) {
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem className="gap-2 rounded-lg text-destructive">
+              <DropdownMenuItem
+                onClick={async () => {
+                  await signOut({ redirect: true, redirectTo: "/" });
+                }}
+                className="gap-2 rounded-lg text-destructive"
+              >
                 <LogOut className="h-4 w-4" />
                 Logout
               </DropdownMenuItem>

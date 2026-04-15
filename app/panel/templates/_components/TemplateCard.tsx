@@ -85,16 +85,16 @@ export default function TemplateCard({index}:{index: number}) {
           <Separator />
 
           {/* Actions */}
-          <div className="flex gap-2">
-            <Button className="flex-1">
+          <div className="grid md:flex gap-2">
+            <Button className="md:flex-1 col-span-2">
               <ExternalLink size={14} /> Preview
             </Button>
 
-            <Button variant="secondary" className="flex-1">
+            <Button variant="secondary" className="md:flex-1 col-span-1">
               Edit
             </Button>
 
-            <Button variant="destructive" className="flex-1">
+            <Button variant="destructive" className="md:flex-1 col-span-1">
               Delete
             </Button>
           </div>

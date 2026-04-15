@@ -31,46 +31,55 @@ const menuItems = [
     title: "Dashboard",
     icon: LayoutDashboard,
     href: "/panel",
+    role: ["ADMIN","USER"]
   },
   {
     title: "Manage Users",
     icon: Users,
     href: "/panel/manage-users",
+    role: ["ADMIN"]
   },
   {
     title: "manage websites",
     icon: LucideAppWindow,
     href: "/panel/manage-websites",
+    role: ["ADMIN"]
   },
   {
     title: "customer insights",
     icon: Send,
     href: "/panel/customer-insights",
+    role: ["ADMIN"]
   },
   {
     title: "Templates",
     icon: FileType,
     href: "/panel/templates",
+    role: ["ADMIN","USER"]
   },
   {
     title: "Billings",
     icon: FileText,
     href: "/panel/plans",
+    role: ["ADMIN","USER"]
   },
   {
     title: "Support",
     icon: HelpCircle,
     href: "/panel/help-desk",
+    role: ["USER"]
   },
   {
     title: "Roadmaps",
     icon: Map,
     href: "/panel/roadmaps",
+    role: ["ADMIN","USER"]
   },
   {
     title: "Settings",
     icon: Settings,
     href: "/panel/settings",
+    role: ["ADMIN","USER"]
   },
 ];
 

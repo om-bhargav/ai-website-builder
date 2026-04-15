@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
 import { Particles } from "@/components/ui/particles";
-import { useRouter } from "next/navigation.js";
+import { useRouter } from "next/navigation";
 
 import Button1 from "@/components/buttons/Button1";
+import { AuthStore } from "@/store/AuthInfo";
+import { ArrowRight } from "lucide-react";
 const MyHeader = () => {
-  // const { isLoaded, isSignedIn, user } = useUser();
+  const { user } = AuthStore();
   const router = useRouter();
   return (
     <div
@@ -22,16 +23,21 @@ const MyHeader = () => {
           with confidence and focus on growing your business, while we handle the technical details.
         </div>
         <div className="flex gap-3 flex-col lg:flex-row w-full justify-center">
-          {/* {/* {!isSignedIn && ( */}
-          <Button1
-            onClick={() => {
-              router.push("/sign-up");
-            }}
-            className="md:min-w-[300px] p-6! rounded-full! text-xl"
-            text="Get Started"
-          />
-          {/* )}  */}
-          {/* <button onClick={() => {router.push('/login')}} className='w-full text-white bg-gradient-to-br from-indigo-500 to-purple-900 hover:scale-103 transition cursor-pointer rounded-3xl text-xl text-black font-semibold p-3'>Login</button> */}
+          {user ? (<Button1
+              onClick={() => {
+                router.push("/panel");
+              }}
+              className="md:min-w-[300px] p-6! rounded-full! text-xl"
+              text={`Go To Dashboard →`}
+            />):(
+            <Button1
+              onClick={() => {
+                router.push("/sign-up");
+              }}
+              className="md:min-w-[300px] p-6! rounded-full! text-xl"
+              text="Get Started"
+            />
+          )}
         </div>
       </div>
       <Particles

@@ -15,8 +15,10 @@ function AuthWrapper({ children }: React.PropsWithChildren) {
       try{
         const response = await fetch("/api/user/me");
         const data = await response.json();
-        console.log(data);
-        loginUser(data.user);
+        if(!data.success) throw Error();
+        
+        loginUser(data.data);
+
       }catch(error: any){
           resetUser();
       }

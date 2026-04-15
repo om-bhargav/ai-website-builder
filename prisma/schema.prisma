@@ -37,12 +37,13 @@ model User{
   password String?
   image String?
   bio String? @default("")
-  emailVerified Boolean?
+  emailVerified DateTime?
   accounts Account[]
+    sessions  Session[]   // ✅ ADD THIS
   role ROLE @default(USER)
   websites Website[]
   templates Template[]
-  plan Plan?
+  // plan Plan[]
 }
 
 model Account {
@@ -63,7 +64,14 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 model Template{
   id String  @id @unique @default(uuid())
   userId String
@@ -71,6 +79,7 @@ model Template{
   description String
   thumbnail String
   status STATUS @default(DRAFT)
+  file String
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
 }
 
@@ -83,6 +92,7 @@ model Website{
   site_url String
   user User @relation(fields: [userId],references: [id],onDelete: Cascade)
   status STATUS @default(DRAFT)
+  file String
 }
 
 enum PLAN_TYPE{
@@ -93,10 +103,9 @@ enum PLAN_TYPE{
 
 model Plan{
   id String  @id @unique @default(uuid())
-  userId String @unique
   active Boolean @default(false)
-  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
-  type PLAN_TYPE @default(BASIC)
+  money Int
+  websites Int
 }
 
 model submissions{
@@ -124,4 +133,16 @@ model Roadmap {
   viewport    Json?    // zoom + position (optional)
 
   @@map("roadmaps")
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  email     String
+  otp       String
+  name      String?
+  password  String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }

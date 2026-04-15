@@ -1,15 +1,38 @@
 "use client";
-import { InfoCard } from "@/app/(auth)/sign-up/[[...rest]]/page";
 import Button2 from "@/components/buttons/Button2";
 import GoBackButton from "@/components/buttons/GoBackButton";
 import GoogleButtonProvider from "@/components/buttons/GoogleButtonProvider";
 import Input from "@/components/CustomComponents/Input";
-import Footer from "@/components/landing/Footer";
 import { Particles } from "@/components/ui/particles";
-import { Database, Monitor, Server } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 const Login = () => {
+  const router = useRouter();
+  const [pending,setPending] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPending(true);
+    try{
+      const fd = new FormData(e.currentTarget as any);
+      const body = Object.fromEntries(fd);
+      const res: any = await signIn("credentials", {
+        email: body.email,
+        password: body.password,
+        redirect: false
+      });
+      if (res?.error) {
+        throw Error("Invalid email or password");
+      }
+      router.push("/");
+    }catch(error: any){
+      toast.error(error.message);
+    }finally{
+      setPending(false);
+    }
+  };
   return (
     <div>
       <div className="xl:w-screen place-items-center mx-auto grid xl:grid-cols-2 px-3 h-screen w-full">
@@ -35,15 +58,15 @@ const Login = () => {
             </div>
           </div>
 
-          <form className="grid gap-5">
+          <form onSubmit={handleSubmit} className="grid gap-5">
             <div className="grid">
-              <Input type="email" placeholder="Your Email" />
+              <Input type="email" name="email" placeholder="Your Email" />
             </div>
 
             <div className="grid">
-              <Input type="password" placeholder="Password" />
+              <Input type="password" name="password" placeholder="Password" />
             </div>
-            <Button2 text={"Start Building"} />
+            <Button2 disabled={pending} text={pending ? "Sigining In...":"Start Building"} />
 
             {/* Google Signup Button */}
             <GoogleButtonProvider
@@ -62,11 +85,11 @@ const Login = () => {
             </Link>
           </form>
 
-          <div className="grid grid-cols-3 gap-3">
+          {/* <div className="grid grid-cols-3 gap-3">
             <InfoCard Icon={Monitor} text="Frontend" />
             <InfoCard Icon={Server} text="Backend" />
             <InfoCard Icon={Database} text="Database" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
