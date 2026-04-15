@@ -146,3 +146,10 @@ model Otp {
 
   @@index([email])
 }
+
+
+model LogTraffic {
+  id    String   @id @default(cuid())
+  date  DateTime @unique
+  views Int      @default(0)
+}

@@ -28,7 +28,7 @@ const MyHeader = () => {
                 router.push("/panel");
               }}
               className="md:min-w-[300px] p-6! rounded-full! text-xl"
-              text={`Go To Dashboard →`}
+              text={`Go To Dashboard`}
             />):(
             <Button1
               onClick={() => {
