@@ -19,7 +19,12 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = AuthStore();
   return (
-    <div className="bg-[#3c1d6f] px-3">
+    <div className="px-3">
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-violet-500/25 blur-[120px] rounded-full" />
+        <div className="absolute top-0 right-1/4 w-72 h-72 bg-pink-500/20 blur-[120px] rounded-full" />
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-96 h-40 bg-fuchsia-500/15 blur-[100px] rounded-full" />
+      </div>
       <div className="container max-w-[1400px] flex justify-between items-center mx-auto py-4">
         {/* Logo */}
         <div className="text-2xl font-bold uppercase">{SITE_NAME}</div>

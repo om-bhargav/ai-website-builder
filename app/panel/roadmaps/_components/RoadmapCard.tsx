@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { MoreVertical, Pencil, Trash, Play } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 type RoadMapProps = {
+  id: string;
   title: string
   description: string
   created_at: string
@@ -25,7 +27,6 @@ type RoadmapCardProps = {
   // actions
   onEdit?: () => void
   onDelete?: () => void
-  onWork?: () => void
 }
 
 export function RoadmapCard({
@@ -33,8 +34,11 @@ export function RoadmapCard({
   index,
   onEdit,
   onDelete,
-  onWork,
 }: RoadmapCardProps) {
+  const router = useRouter();
+  const onWork = () => {
+    router.push(`/panel/roadmaps/${data.id}`);
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -44,7 +48,7 @@ export function RoadmapCard({
         delay: index * 0.08,
         ease: "easeOut",
       }}
-      whileHover={{ scale: 1.01, y: -4 }}
+      whileHover={{ scale: 1.01, y: -4,transition:{delay: 0} }}
       whileTap={{ scale: 0.98 }}
       className="w-full max-w-md"
     >

@@ -1,10 +1,13 @@
-import fs from "fs";
-import path from "path";
+export async function fileToBuffer(file: File): Promise<Buffer> {
+  const bytes = await file.arrayBuffer();
+  return Buffer.from(bytes);
+}
 
-export function imageToBase64(filePath: string) {
-  const absolutePath = path.resolve(filePath);
-  const file = fs.readFileSync(absolutePath);
-  const ext = path.extname(filePath).replace(".", "");
+export async function fileToBase64(file: File): Promise<string> {
+  const buffer = await fileToBuffer(file);
 
-  return `data:image/${ext};base64,${file.toString("base64")}`;
+  const mime = file.type;
+  const base64 = buffer.toString("base64");
+
+  return `data:${mime};base64,${base64}`;
 }

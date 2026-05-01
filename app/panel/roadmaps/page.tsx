@@ -15,11 +15,11 @@ export const sampleRoadmap = {
 export default function page() {
   return (
     <div className="grid gap-5 p-4">
-      <div className="flex max-md:flex-col md:items-center gap-5 justify-between">
+      <div className="flex max-md:flex-col md:items-center gap-6 justify-between">
         <h2 className="text-3xl font-semibold">Manage Roadmaps</h2>
         <div className="flex max-md:flex-col gap-5 md:items-center">
           <div className="flex items-center gap-2">
-            <Input placeholder="Search Roadmaps" />
+            <Input placeholder="Search Roadmaps" /> 
             <Button variant={"secondary"}>
               <Search />
             </Button>

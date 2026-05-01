@@ -6,7 +6,7 @@ import fetcher from "@/lib/fetcher";
 import ErrorLoading from "@/components/ErrorLoading";
 import { Select } from "@/components/ui/select";
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-const TYPES = ["INSIGHT", "QUERY"];
+const TYPES = ["INSIGHT", "QUERY","BUG","FEEDBACK"];
 export default function InsightsPage() {
   const [type, setType] = React.useState<string>("ALL");
   const { data, isLoading, isValidating } = useSWR("/api/admin/submissions", fetcher);

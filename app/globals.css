@@ -125,7 +125,9 @@ span[data-slot="switch-thumb"]{
     @apply bg-background text-foreground;
   }
 }
-
+html{
+  scroll-behavior: smooth;
+}
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-button,
 ::-webkit-scrollbar-thumb {

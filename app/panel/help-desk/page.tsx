@@ -13,28 +13,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-
+import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 export default function Page() {
   const [type, setType] = useState("");
   const [message, setMessage] = useState("");
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = () => {
+  const [pending, setPending] = useState(false);
+  const handleSubmit = async () => {
     if (!type || !message) {
       alert("Please fill all required fields");
       return;
     }
-
-    console.log({
-      type,
-      message,
-      email,
-    });
-
-    // reset
-    setType("");
-    setMessage("");
-    setEmail("");
+    try {
+      setPending(true);
+      const request = await fetch("/api/user/submission", {
+        method: "POST",
+        body: JSON.stringify({ messageType: type, message }),
+      });
+      const response = await request.json();
+      if (!response.success) {
+        throw Error(response.message);
+      }
+      setType("");
+      setMessage("");
+      toast.success(response.message);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -50,15 +57,23 @@ export default function Page() {
         {/* 📌 Type Selector */}
         <div className="space-y-2">
           <Label>Type</Label>
-          <Select value={type} onValueChange={setType}>
+          <Select disabled={pending} value={type} onValueChange={setType}>
             <SelectTrigger className="w-full">
               <SelectValue className="uppercase" placeholder="Select type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem className="uppercase" value="QUERY">Query</SelectItem>
-              <SelectItem className="uppercase" value="FEEDBACK">Feedback</SelectItem>
-              <SelectItem className="uppercase" value="INSIGHT">Insight</SelectItem>
-              <SelectItem className="uppercase" value="BUG">Report a Bug</SelectItem>
+              <SelectItem className="uppercase" value="QUERY">
+                Query
+              </SelectItem>
+              <SelectItem className="uppercase" value="FEEDBACK">
+                Feedback
+              </SelectItem>
+              <SelectItem className="uppercase" value="INSIGHT">
+                Insight
+              </SelectItem>
+              <SelectItem className="uppercase" value="BUG">
+                Report a Bug
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -67,6 +82,7 @@ export default function Page() {
         <div className="space-y-2 flex flex-col flex-1">
           <Label>Message</Label>
           <Textarea
+            disabled={pending}
             placeholder="Write your message here..."
             className="flex-1 resize-none min-h-[120px]"
             value={message}
@@ -75,8 +91,8 @@ export default function Page() {
         </div>
 
         {/* 🚀 Submit */}
-        <Button className="w-full mt-auto" onClick={handleSubmit}>
-          Submit
+        <Button disabled={pending} className="w-full mt-auto" onClick={handleSubmit}>
+          {pending ? <Loader2 className="animate-spin size-4" /> : "Submit"}
         </Button>
       </CardContent>
     </Card>

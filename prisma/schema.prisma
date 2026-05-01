@@ -36,13 +36,18 @@ model User{
   phone  String?
   password String?
   image String?
+  country String?
+  city String?
   bio String? @default("")
   emailVerified DateTime?
+  profileCompleted Boolean @default(false)
   accounts Account[]
-    sessions  Session[]   // ✅ ADD THIS
+  sessions  Session[]   // ✅ ADD THIS
   role ROLE @default(USER)
   websites Website[]
   templates Template[]
+  submissions submissions[]
+  roadmaps Roadmap[]
   // plan Plan[]
 }
 
@@ -116,6 +121,8 @@ model submissions{
   city String
   message String
   type String @default("QUERY")
+  userId String?
+  user User? @relation(fields: [userId],references: [id],onDelete: Cascade)
   createdAt DateTime @default(now())
 }
 
@@ -131,7 +138,8 @@ model Roadmap {
   nodes       Json     // stores nodes array
   edges       Json     // stores edges array
   viewport    Json?    // zoom + position (optional)
-
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId String
   @@map("roadmaps")
 }
 
