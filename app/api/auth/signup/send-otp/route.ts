@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     const html = await getOtpEmailTemplate({
       otp,
     });
-    sendMail({
+    await sendMail({
       to: email,
       subject: `Otp For Verification - ${SITE_NAME}`,
       html: html,
