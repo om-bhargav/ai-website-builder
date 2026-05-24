@@ -9,6 +9,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { SITE_NAME } from "@/config";
 const Login = () => {
   const router = useRouter();
   const [pending,setPending] = useState(false);
@@ -51,7 +52,7 @@ const Login = () => {
           <div className="flex gap-3 items-center flex-col">
             <img src="/logo.png" className="h-50 select-none" />
             <div className="flex flex-col gap-1 items-center text-center">
-              <div className="text-2xl font-semibold tracking-wide">Pagepiolet - Signin</div>
+              <div className="text-2xl font-semibold tracking-wide">{SITE_NAME} - Signin</div>
               <div className="text-sm text-gray-200 tracking-wider">
                 AI POWERED WEBSITE CREATION NO CODE REQUIRED!
               </div>

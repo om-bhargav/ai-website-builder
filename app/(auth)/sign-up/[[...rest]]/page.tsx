@@ -14,6 +14,7 @@ import GoogleButtonProvider from "@/components/buttons/GoogleButtonProvider";
 import { signIn } from "next-auth/react";
 import * as React from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { SITE_NAME } from "@/config";
 type SignupErrors = {
   name?: string[];
   email?: string[];
@@ -153,7 +154,7 @@ const Signup = () => {
           <div className="flex gap-3 items-center flex-col">
             <img src="/logo.png" className="h-50 select-none" />
             <div className="flex flex-col gap-1 items-center text-center">
-              <div className="text-2xl font-semibold tracking-wide">Pagepiolet - Signup</div>
+              <div className="text-2xl font-semibold tracking-wide">{SITE_NAME} - Signup</div>
               <div className="text-sm text-gray-200 tracking-wider">
                 AI POWERED WEBSITE CREATION NO CODE REQUIRED!
               </div>
