@@ -126,6 +126,19 @@ ICON RULES
 ==================================================
 
 Use Lucide icons via CDN.
+IMPORTANT LUCIDE RULES:
+
+- You MUST include:
+<script src="https://unpkg.com/lucide@latest"></script>
+
+- Use icons ONLY like:
+<i data-lucide="rocket"></i>
+
+- After React renders call:
+lucide.createIcons();
+
+- Ensure icons are initialized AFTER DOM paint using:
+setTimeout(() => lucide.createIcons(), 100);
 
 Examples:
 - rocket
