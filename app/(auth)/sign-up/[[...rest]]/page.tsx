@@ -154,7 +154,7 @@ const Signup = () => {
           <div className="flex gap-3 items-center flex-col">
             <img src="/logo.png" className="h-50 select-none" />
             <div className="flex flex-col gap-1 items-center text-center">
-              <div className="text-2xl font-semibold tracking-wide">{SITE_NAME} - Signup</div>
+              <div className="text-2xl font-semibold tracking-wide capitalize">{SITE_NAME} - Signup</div>
               <div className="text-sm text-gray-200 tracking-wider">
                 AI POWERED WEBSITE CREATION NO CODE REQUIRED!
               </div>
