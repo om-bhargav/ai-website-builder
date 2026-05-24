@@ -88,7 +88,7 @@ Avoid:
 - generic "feature cards grid"
 - using max-width for hero section's background
 - dont use gradients for backgrounds
-- using similar text colors as background
+- using similar text colors as background in footer especially
 Instead use:
 - gradient backgrounds
 - layered cards
