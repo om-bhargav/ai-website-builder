@@ -147,7 +147,7 @@ export default function AdvancedUserCard({
           </div>
 
           {/* BIO */}
-          <p className="text-sm text-muted-foreground">{user.bio}</p>
+          <p className="text-sm text-muted-foreground line-clamp-1">{user.bio ?? "Bio Not Added"}</p>
 
           {/* INFO */}
           <div className="grid grid-cols-2 gap-4 text-sm">

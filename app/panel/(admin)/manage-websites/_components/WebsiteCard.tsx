@@ -163,7 +163,7 @@ export default function WebsiteCard({
 
         {/* Content */}
         <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">{website.description}</p>
+          <p className="text-sm text-muted-foreground line-clamp-1">{website.description}</p>
 
           <Separator />
 

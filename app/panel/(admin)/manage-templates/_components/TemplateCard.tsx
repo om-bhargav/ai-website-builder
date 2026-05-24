@@ -88,7 +88,7 @@ export default function TemplateCard({
 
         <CardContent className="space-y-4">
           {/* Description */}
-          <p className="text-sm text-muted-foreground">{template.description}</p>
+          <p className="text-sm text-muted-foreground line-clamp-1">{template.description}</p>
 
           <Separator />
 
