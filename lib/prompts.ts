@@ -78,6 +78,12 @@ Your response MUST:
 - No triple backticks
 - No surrounding text
 - use the usestates for navigation and showing the pages
+- The website MUST have smooth scrolling enabled globally.
+Add this inside <style> or Tailwind config:
+
+html {
+  scroll-behavior: smooth;
+}
 
 ==================================================
 DESIGN REQUIREMENTS
