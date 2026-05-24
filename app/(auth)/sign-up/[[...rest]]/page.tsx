@@ -91,6 +91,7 @@ const Signup = () => {
           setErrors(mapZodErrors(response.errors));
           return;
         }
+        throw Error(response.message);
       }
       toast.success(response.message);
       router.push("/sign-in");
