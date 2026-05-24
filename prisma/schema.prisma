@@ -1,0 +1,227 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum STATUS {
+  DRAFT
+  UNDER_DEVELOPMENT
+  PUBLISHED
+}
+
+enum ROLE {
+  USER
+  ADMIN
+}
+
+enum USER_STATUS {
+  ACTIVATED
+  DEACTIVATED
+  SUSPENDED
+}
+
+model User {
+  id               String        @id @unique @default(uuid())
+  name             String
+  email            String        @unique
+  phone            String?
+  password         String?
+  image            String?
+  country          String?
+  city             String?
+  bio              String?       @default("")
+  emailVerified    DateTime?
+  profileCompleted Boolean       @default(false)
+  total_websites   Int           @default(0)
+  status           USER_STATUS   @default(ACTIVATED)
+  accounts         Account[]
+  sessions         Session[]
+  role             ROLE          @default(USER)
+  websites         Website[]
+  templates        Template[]
+  submissions      submissions[]
+  roadmaps         Roadmap[]
+  transactions     Transaction[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now()) @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Template {
+  id          String   @id @unique @default(uuid())
+  userId      String
+  title       String
+  description String
+  thumbnail   String
+  status      STATUS   @default(DRAFT)
+  file        String?   @db.Text
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}
+
+model Website {
+  id          String   @id @unique @default(uuid())
+  title       String
+  description String
+  userId      String
+  thumbnail   String
+  featured    Boolean
+  blocked     Boolean  @default(false)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  views       Int      @default(0)
+  status      STATUS   @default(DRAFT)
+  file        String?   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}
+
+enum PLAN_TYPE {
+  BASIC
+  PRO
+  ADVANCED
+}
+
+model Plan {
+  id String @id @default(uuid())
+
+  title       String
+  description String
+
+  price    Int
+  websites Int
+  featured Boolean? @default(false)
+  active   Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  planId String?
+  plan   Plan?   @relation(fields: [planId], references: [id], onDelete: SetNull)
+
+  title       String
+  description String?
+
+  amount Float
+
+  status TransactionStatus @default(PENDING)
+
+  paymentId  String? @unique
+  invoiceUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TransactionStatus {
+  SUCCESS
+  PENDING
+  FAILED
+}
+
+model submissions {
+  id        String   @id @unique @default(uuid())
+  name      String
+  email     String
+  phone     String
+  city      String
+  message   String
+  type      String   @default("QUERY")
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Roadmap {
+  id          String @id @default(cuid())
+  title       String
+  description String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  // React Flow fields
+  nodes  Json?
+  edges  Json?
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@map("roadmaps")
+}
+
+model Otp {
+  id        String   @id @default(cuid())
+  email     String
+  otp       String
+  name      String?
+  password  String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model LogTraffic {
+  id    String   @id @default(cuid())
+  date  DateTime @unique
+  views Int      @default(0)
+}
+
+model Blog {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String   @db.Text
+  excerpt   String?  @db.Text
+  coverImg  String?
+  tags      String[]
+  published Boolean  @default(false)
+  views     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
