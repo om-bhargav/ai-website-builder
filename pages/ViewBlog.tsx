@@ -38,7 +38,7 @@ export default function ViewBlog({ id }: { id: string }) {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-5 pb-14 pt-24">
+    <main className="mx-auto max-w-5xl w-full px-5 pb-14 pt-24">
       {/* Loading */}
       {isLoading && <BlogSkeleton />}
       {/* Blog */}
@@ -113,7 +113,7 @@ export default function ViewBlog({ id }: { id: string }) {
 
 function BlogSkeleton() {
   return (
-    <div className="space-y-8 w-full!">
+    <div className="space-y-8 w-full">
       <div className="h-12 w-3/4 animate-pulse rounded bg-muted" />
 
       <div className="flex gap-4">
