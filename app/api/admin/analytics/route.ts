@@ -1,17 +1,89 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { AdminWrapper } from "@/lib/middlewares/AdminWrapper";
+function getDayKey(date: Date) {
+  return date.toISOString().split("T")[0]; // YYYY-MM-DD
+}
+export function getWeeklyUserGrowth(users: { createdAt: Date }[]) {
+  const map = new Map<string, number>();
 
+  const now = new Date();
+
+  // create last 7 days buckets
+  const last7Days: string[] = Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date(now);
+    d.setDate(now.getDate() - (6 - i));
+    return getDayKey(d);
+  });
+
+  // initialize with 0
+  last7Days.forEach((d) => map.set(d, 0));
+
+  // count users
+  users.forEach((u) => {
+    const key = getDayKey(new Date(u.createdAt));
+    if (map.has(key)) {
+      map.set(key, (map.get(key) || 0) + 1);
+    }
+  });
+
+  return last7Days.map((date) => ({
+    date,
+    value: map.get(date) || 0,
+  }));
+}
+export function getMonthlyUserGrowth(users: { createdAt: Date }[]) {
+  const map = new Map<string, number>();
+
+  const now = new Date();
+
+  const last30Days: string[] = Array.from({ length: 30 }).map((_, i) => {
+    const d = new Date(now);
+    d.setDate(now.getDate() - (29 - i));
+    return getDayKey(d);
+  });
+
+  last30Days.forEach((d) => map.set(d, 0));
+
+  users.forEach((u) => {
+    const key = getDayKey(new Date(u.createdAt));
+    if (map.has(key)) {
+      map.set(key, (map.get(key) || 0) + 1);
+    }
+  });
+
+  return last30Days.map((date) => ({
+    date,
+    value: map.get(date) || 0,
+  }));
+}
 export const GET = AdminWrapper(async () => {
+  const now = new Date();
+
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
   // ================= METRICS =================
-  const [totalUsers, totalWebsites, totalTemplates, totalTransactions, totalSubmissions] =
-    await Promise.all([
+  const [totalUsers, totalWebsites, totalTemplates, totalRevenue, monthRevenue] = await Promise.all(
+    [
       prisma.user.count(),
       prisma.website.count(),
       prisma.template.count(),
-      prisma.transaction.count(),
-      prisma.submissions.count(),
-    ]);
+      prisma.transaction.aggregate({ where: { status: "SUCCESS" }, _sum: { amount: true } }),
+      prisma.transaction.aggregate({
+        where: {
+          status: "SUCCESS",
+          createdAt: {
+            gte: startOfMonth,
+            lte: endOfMonth,
+          },
+        },
+        _sum: {
+          amount: true,
+        },
+      }),
+    ],
+  );
 
   // ================= WEBSITE STATUS =================
   const websiteStatus = await prisma.website.groupBy({
@@ -49,49 +121,10 @@ export const GET = AdminWrapper(async () => {
   const users = await prisma.user.findMany({
     select: { createdAt: true },
   });
-
-  // ================= HELPERS =================
-  const formatDate = (d: Date) => d.toISOString().split("T")[0];
-
-  // group helper
-  function groupByRange(dates: string[]) {
-    const map = new Map<string, number>();
-
-    dates.forEach((d) => {
-      map.set(d, (map.get(d) || 0) + 1);
-    });
-
-    return Array.from(map.entries()).map(([date, value]) => ({
-      date,
-      value,
-    }));
-  }
-
-  // ================= SORT ALL USERS =================
-  const sortedDates = users.map((u) => formatDate(new Date(u.createdAt))).sort();
-
-  // ================= WEEKLY (LAST 7 DAYS) =================
-  const last7Days = sortedDates.slice(-7);
-  const weekly = groupByRange(last7Days);
-
-  // ================= MONTHLY (LAST 5 GROUPS) =================
-  // simple bucket: split into 5 chunks
-  const chunkSize = Math.ceil(sortedDates.length / 5);
-
-  const monthly = Array.from({ length: 5 }).map((_, i) => {
-    const slice = sortedDates.slice(i * chunkSize, (i + 1) * chunkSize);
-
-    return {
-      date: `M${i + 1}`,
-      value: slice.length,
-    };
-  });
-
-  // ================= FINAL OUTPUT =================
   const userGrowth = {
-    weekly,
-    monthly,
-  };
+    weekly: getWeeklyUserGrowth(users),
+    monthly: getMonthlyUserGrowth(users)
+  }
 
   // ================= WEBSITE VIEWS (logTraffic BASED) =================
   const trafficLogs = await prisma.logTraffic.findMany({
@@ -152,8 +185,8 @@ export const GET = AdminWrapper(async () => {
       totalUsers,
       totalWebsites,
       totalTemplates,
-      totalTransactions,
-      totalSubmissions,
+      totalRevenue: totalRevenue._sum.amount || 0,
+      monthRevenue: monthRevenue._sum.amount || 0,
     },
 
     websiteStatus: websiteStatusStats,

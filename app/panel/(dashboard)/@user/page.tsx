@@ -4,7 +4,7 @@ import * as React from "react";
 import useSWR from "swr";
 import { motion } from "framer-motion";
 
-import { Globe, LayoutTemplate, CreditCard, Map, MessageSquare } from "lucide-react";
+import { Globe, LayoutTemplate, CreditCard, Map, MessageSquare, IndianRupee } from "lucide-react";
 
 import fetcher from "@/lib/fetcher";
 
@@ -19,7 +19,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 type AnalyticsResponse = {
   metrics: {
     totalWebsites: number;
-    totalTemplates: number;
+    totalMoneySpent: number;
     totalTransactions: number;
     totalRoadmaps: number;
     remainingWebsites: number;
@@ -51,11 +51,11 @@ type AnalyticsResponse = {
 // ================= SKELETON =================
 
 function MetricSkeleton() {
-  return <Skeleton className="h-24 w-full rounded-2xl" />;
+  return <Skeleton className="h-24 w-full rounded-2xl bg-gray-600" />;
 }
 
 function ChartSkeleton() {
-  return <Skeleton className="h-[320px] w-full rounded-2xl" />;
+  return <Skeleton className="h-[320px] w-full rounded-2xl bg-gray-600" />;
 }
 
 // ================= PAGE =================
@@ -90,7 +90,7 @@ export default function UserDashboard() {
         ) : (
           <>
             <MetricCard title="Websites" value={metrics.totalWebsites} icon={Globe} />
-            <MetricCard title="Templates" value={metrics.totalTemplates} icon={LayoutTemplate} />
+            <MetricCard title="Money Spent" value={metrics.totalMoneySpent} icon={IndianRupee} />
             <MetricCard title="Transactions" value={metrics.totalTransactions} icon={CreditCard} />
             <MetricCard title="Roadmaps" value={metrics.totalRoadmaps} icon={Map} />
             <MetricCard title="Remaining Websites" value={metrics.remainingWebsites} icon={Map} />
@@ -104,7 +104,7 @@ export default function UserDashboard() {
           {isLoading ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
-                <Skeleton key={i} className="h-12 w-full rounded-xl" />
+                <Skeleton key={i} className="h-12 w-full rounded-xl bg-gray-700" />
               ))}
             </div>
           ) : (
@@ -134,9 +134,9 @@ export default function UserDashboard() {
         <ActivityCard title="Transactions Overview">
           {isLoading ? (
             <div className="space-y-4">
-              <Skeleton className="h-6 w-full rounded-xl" />
-              <Skeleton className="h-6 w-full rounded-xl" />
-              <Skeleton className="h-6 w-full rounded-xl" />
+              <Skeleton className="h-6 w-full rounded-xl bg-gray-700" />
+              <Skeleton className="h-6 w-full rounded-xl bg-gray-700" />
+              <Skeleton className="h-6 w-full rounded-xl bg-gray-700" />
             </div>
           ) : (
             <div className="space-y-4">

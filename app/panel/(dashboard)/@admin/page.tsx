@@ -17,6 +17,7 @@ import {
   CreditCard,
   FileText,
   Shield,
+  IndianRupee,
 } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -28,8 +29,8 @@ type AnalyticsResponse = {
     totalUsers: number;
     totalWebsites: number;
     totalTemplates: number;
-    totalTransactions: number;
-    totalSubmissions: number;
+    monthRevenue: number;
+    totalRevenue: number;
   };
 
   transactions: {
@@ -100,11 +101,11 @@ export default function Dashboard() {
           ))
         ) : (
           <>
+            <MetricCard title="Total Revenue" value={`₹${metrics.totalRevenue}`} icon={IndianRupee} />
+            <MetricCard title="This month's Revenue" value={`₹${metrics.monthRevenue}`} icon={IndianRupee} />
             <MetricCard title="Users" value={metrics.totalUsers} icon={Users} />
             <MetricCard title="Websites" value={metrics.totalWebsites} icon={Globe} />
             <MetricCard title="Templates" value={metrics.totalTemplates} icon={LayoutTemplate} />
-            <MetricCard title="Transactions" value={metrics.totalTransactions} icon={CreditCard} />
-            <MetricCard title="Submissions" value={metrics.totalSubmissions} icon={FileText} />
             <MetricCard title="Admins" value={1} icon={Shield} />
           </>
         )}
