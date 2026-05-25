@@ -137,7 +137,7 @@ export default function WebsiteCard({
 
           {/* ACTIONS */}
           <div className="grid gap-2">
-          <div className="flex gap-2">
+          <div className="flex max-md:flex-col gap-2">
             {/* VISIT */}
             <Button className="flex-1" asChild>
               <a href={`/view/website/${website.id}`} target="_blank">

@@ -21,6 +21,7 @@ import {
   Map,
   Package2,
   Send,
+  Settings,
   Users,
   X,
 } from "lucide-react";
@@ -101,6 +102,12 @@ const menuItems = [
     icon: BookOpen,
     href: "/panel/blogs",
     role: ["ADMIN"],
+  },
+  {
+    title: "Settings",
+    icon: Settings,
+    href: "/panel/settings",
+    role: ["USER"],
   },
 ];
 

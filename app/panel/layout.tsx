@@ -13,8 +13,8 @@ export default function Layout({ children }: React.PropsWithChildren) {
       <div className="flex flex-1 flex-col overflow-hidden">
         <Topbar setOpen={setOpen} />
 
-        <div className="flex-1 overflow-y-auto p-5 pb-2">
-          <div className="h-full overflow-y-auto rounded-xl bg-sidebar shadow-lg p-4">{children}</div>
+        <div className="flex-1 overflow-y-auto p-3 md:p-5 pb-2">
+          <div className="h-full overflow-y-auto rounded-xl bg-sidebar shadow-lg p-1 md:p-4">{children}</div>
         </div>
       </div>
     </div>

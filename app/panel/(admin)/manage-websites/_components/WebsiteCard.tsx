@@ -187,7 +187,7 @@ export default function WebsiteCard({
           <Separator />
 
           {/* Admin Actions */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 gap-2">
             <Button
               variant="outline"
               className="w-full gap-1"
