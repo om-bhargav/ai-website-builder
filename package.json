@@ -97,7 +97,7 @@
     "tsx": "^4.22.3",
     "vaul": "^1.1.2",
     "zod": "^4.3.5",
-    "zustand": "^5.0.11"
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
